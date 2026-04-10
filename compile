@@ -306,7 +306,9 @@ while true; do
     echo " ║ e. Exit                            ║"
     echo " ╚════════════════════════════════════╝"
     echo -n " Enter your choice : "
-    read -r menu
+    if ! read -r menu; then
+        break
+    fi
     
     case "$menu" in
         1)
