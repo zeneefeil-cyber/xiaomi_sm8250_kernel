@@ -29,13 +29,13 @@ jobs:
           key: toolchains-aosp-clang-22-${{ runner.os }}
 
       - name: Download Toolchains and AnyKernel3
-        if: steps.cache-toolchains.outputs.cache-hit != 'true'
         run: |
           mkdir -p ../toolchains
           git clone https://github.com/osm0sis/AnyKernel3 ../AnyKernel3
           curl -L https://android.googlesource.com/platform/prebuilts/clang/host/linux-x86/+archive/refs/heads/main/clang-r547379.tar.gz -o ../toolchains/aosp-clang.tar.gz
           mkdir -p ../toolchains/aosp-clang
-          tar -xf ../toolchains/aosp-clang.tar.gz -C ../toolchains/aosp-clang --strip-components=1
+          tar -xf ../toolchains/aosp-clang.tar.gz -C ../toolchains/aosp-clang
+
 
       - name: Build Kernel
         run: |
