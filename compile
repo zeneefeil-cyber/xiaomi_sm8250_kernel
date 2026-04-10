@@ -268,7 +268,7 @@ compilebuild() {
 makebuild() {
     if [[ ! -f "out/.config" ]]; then
         echo "-- Generating defconfig --"
-        make O=out "$DEFCONFIG"
+        make O=out "$DEFCONFIG" LLVM=1
     fi
 
     # Config modifications
