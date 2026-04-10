@@ -23,10 +23,10 @@ jobs:
         run: |
           mkdir -p ../toolchains
           git clone https://github.com/osm0sis/AnyKernel3 ../AnyKernel3
-          curl -L https://github.com/lilium-toolchains/clang/releases/download/v22/lilium-clang-22.tar.gz -o ../toolchains/lilium-clang.tar.gz
-          mkdir -p ../toolchains/lilium-clang
-          tar -xf ../toolchains/lilium-clang.tar.gz -C ../toolchains/lilium-clang --strip-components=1
+          curl -L https://android.googlesource.com/platform/prebuilts/clang/host/linux-x86/+archive/refs/heads/main/clang-r547379.tar.gz -o ../toolchains/aosp-clang.tar.gz
+          mkdir -p ../toolchains/aosp-clang
+          tar -xf ../toolchains/aosp-clang.tar.gz -C ../toolchains/aosp-clang --strip-components=1
 
       - name: Build Kernel
         run: |
-          echo 2 | bash compile alioth lilium
+          echo 2 | bash compile alioth aosp
