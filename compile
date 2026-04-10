@@ -266,6 +266,11 @@ compilebuild() {
 }
 
 makebuild() {
+    if [[ ! -f "out/.config" ]]; then
+        echo "-- Generating defconfig --"
+        make O=out "$DEFCONFIG"
+    fi
+
     # Config modifications
     sed -i '/CONFIG_KALLSYMS=/c\CONFIG_KALLSYMS=y' out/.config
     sed -i '/CONFIG_KALLSYMS_ALL=/c\CONFIG_KALLSYMS_ALL=y' out/.config
