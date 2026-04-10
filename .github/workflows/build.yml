@@ -17,9 +17,19 @@ jobs:
       - name: Install Dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y bc bison flex make gcc git zip curl
+          sudo apt-get install -y bc bison flex make gcc git zip curl ccache
+
+      - name: Cache Toolchains
+        id: cache-toolchains
+        uses: actions/cache@v4
+        with:
+          path: |
+            ../toolchains
+            ../AnyKernel3
+          key: toolchains-aosp-clang-22-${{ runner.os }}
 
       - name: Download Toolchains and AnyKernel3
+        if: steps.cache-toolchains.outputs.cache-hit != 'true'
         run: |
           mkdir -p ../toolchains
           git clone https://github.com/osm0sis/AnyKernel3 ../AnyKernel3
