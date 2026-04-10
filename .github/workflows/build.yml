@@ -1,0 +1,31 @@
+name: Build Kernel
+
+on:
+  push:
+    branches: [ main-bpf ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y bc bison flex make gcc git zip curl
+
+      - name: Download Toolchains and AnyKernel3
+        run: |
+          mkdir -p ../toolchains
+          git clone https://github.com/osm0sis/AnyKernel3 ../AnyKernel3
+          # Note: Replace the URL below with the actual Lilium Clang 22 download link
+          curl -L https://github.com/lilium-toolchains/clang/releases/download/v22/lilium-clang-22.tar.gz -o ../toolchains/lilium-clang.tar.gz || echo "Download failed"
+          mkdir -p ../toolchains/lilium-clang
+          tar -xf ../toolchains/lilium-clang.tar.gz -C ../toolchains/lilium-clang --strip-components=1 || echo "Extraction failed"
+
+      - name: Build Kernel
+        run: |
+          echo 2 | bash compile alioth lilium
