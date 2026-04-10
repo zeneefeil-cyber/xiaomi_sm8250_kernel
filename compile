@@ -4,9 +4,7 @@
 
 # Set kernel source directory and base directory to place tools
 KERNEL_DIR="$PWD"
-cd ..
-BASE_DIR="$PWD"
-cd "$KERNEL_DIR"
+BASE_DIR="$KERNEL_DIR"
 
 set -eo pipefail
 trap 'errorbuild' INT TERM ERR
@@ -119,7 +117,7 @@ export SUBARCH="arm64"
 export TZ="Asia/Jakarta"
 
 # Clean previous builds
-rm -rf ../*E404R*.zip
+rm -rf *E404R*.zip
 
 # Function definitions
 build_msg() {
